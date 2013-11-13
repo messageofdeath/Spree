@@ -1,0 +1,20 @@
+name: Spree
+author: messageofdeath
+version: 1.0
+main: net.mcpolitics.dev.Spree.Spree
+depend: [Citizens]
+commands:
+  timer:
+    description: Edit the timer in-game
+  vote:
+    description: Vote for a map.
+  world:
+    description: Configure Worlds.
+  kits:
+    description: Load or Save a kit.
+  npcs:
+    description: Spawn a BlackSmith or Baker
+  points:
+    description: Displays how many points you have.
+  settings:
+    description: Get/Set a setting
