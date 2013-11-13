@@ -285,6 +285,7 @@ public class Game {
 		this.setGameStatus(GameStatus.InLobby);
 		this.seconds = Game.LOBBYTIME;
 		this.sendToLobby();
+		this.announceWinner();
 		if(this.instance.getWorldManager().isLoaded(this.getWorld())) {
 			this.instance.getWorldManager().unloadWorld(this.getWorld());
 		}
