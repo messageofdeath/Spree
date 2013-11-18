@@ -79,11 +79,15 @@ public class KitManager {
 	}
 	
 	public void deleteKitsOnShutDown() {
+		ArrayList<Kit> kits = new ArrayList<Kit>();
 		for(Kit kit : this.getKits()) {
 			if(kit.isDeleteOnShutdown()) {
-				this.deleteKit(kit.getPlayerName(), kit.getKitName());
-				this.removeKit(kit.getPlayerName(), kit.getKitName());
+				kits.add(kit);
 			}
+		}
+		for(Kit kit : kits) {
+			this.deleteKit(kit.getPlayerName(), kit.getKitName());
+			this.removeKit(kit.getPlayerName(), kit.getKitName());
 		}
 	}
 	
