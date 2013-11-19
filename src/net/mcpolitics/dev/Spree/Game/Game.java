@@ -285,13 +285,13 @@ public class Game {
 		this.setGameStatus(GameStatus.InLobby);
 		this.seconds = Game.LOBBYTIME;
 		this.sendToLobby();
-		this.announceWinner();
 		if(this.instance.getWorldManager().isLoaded(this.getWorld())) {
 			this.instance.getWorldManager().unloadWorld(this.getWorld());
 		}
 		this.instance.getStatDatabase().saveDatabase();
 		if(this.getEndReason() != EndReason.NotEnoughPlayers) {
 			this.resetVariables();
+			this.announceWinner();
 		}else{
 			this.endReason = null;
 		}
