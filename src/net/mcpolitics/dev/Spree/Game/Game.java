@@ -263,6 +263,10 @@ public class Game {
 			player.setFoodLevel(20);
 			this.usePortal(player);
 		}
+		this.setGameUp();
+	}
+	
+	public void setGameUp() {
 		this.setGameStatus(GameStatus.InGame);
 		this.seconds = Game.GAMETIME;
 	}
