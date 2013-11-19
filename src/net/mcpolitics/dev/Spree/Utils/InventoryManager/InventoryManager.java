@@ -30,11 +30,23 @@ public class InventoryManager {
 	}
 	
 	public boolean hasMenu(Inventory inv) {
-		return this.getMenu(inv) != null;
+		if(this.getInventory(inv) != null) {
+			return this.getMenu(inv) != null;
+		}else{
+			return false;
+		}
 	}
 	
 	public CustomMenu getMenu(Inventory inv) {
 		return this.getInventory(inv).getMenu(inv);
+	}
+	
+	public boolean hasInventory(String name) {
+		return this.getInventory(name) != null;
+	}
+	
+	public boolean hasInventory(Inventory inv) {
+		return this.getInventory(inv) != null;
 	}
 	
 	public CustomInventory getInventory(String name) {
