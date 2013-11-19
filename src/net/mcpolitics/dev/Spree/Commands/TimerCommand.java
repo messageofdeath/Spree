@@ -1,5 +1,7 @@
 package net.mcpolitics.dev.Spree.Commands;
 
+import java.util.ArrayList;
+
 import net.mcpolitics.dev.Spree.Spree;
 import net.mcpolitics.dev.Spree.Game.Enumerations.GameStatus;
 
@@ -30,6 +32,14 @@ public class TimerCommand extends MessageCommand {
 		else if(cmd.getLength() == 1)
 			if(cmd.getArg(0).equalsIgnoreCase("force"))
 				super.wrongArgs(cmd);
+			else if(cmd.getArg(0).equalsIgnoreCase("stop"))
+				this.stopTimer(cmd);
+			else if(cmd.getArg(0).equalsIgnoreCase("start"))
+				this.startTimer(cmd);
+			else if(cmd.getArg(0).equalsIgnoreCase("resume"))
+				this.resumeTimer(cmd);
+			else if(cmd.getArg(0).equalsIgnoreCase("pause"))
+				this.pauseTimer(cmd);
 			else
 				this.helpMsg(cmd);
 		else if(cmd.getLength() == 2)
@@ -38,12 +48,48 @@ public class TimerCommand extends MessageCommand {
 					this.forceStart(cmd);
 				else if(cmd.getArg(1).equalsIgnoreCase("end"))
 					this.forceEnd(cmd);
+				else if(cmd.getArg(0).equalsIgnoreCase("stop"))
+					super.wrongArgs(cmd);
+				else if(cmd.getArg(0).equalsIgnoreCase("start"))
+					super.wrongArgs(cmd);
+				else if(cmd.getArg(0).equalsIgnoreCase("resume"))
+					super.wrongArgs(cmd);
+				else if(cmd.getArg(0).equalsIgnoreCase("pause"))
+					super.wrongArgs(cmd);
 				else
 					this.helpMsg(cmd);
 			else
 				this.helpMsg(cmd);
 		else
 			this.helpMsg(cmd);
+	}
+	
+	private void startTimer(IssuedCommand cmd) {
+		this.instance.getGame().setGameUp();
+		this.instance.getPluginTimer().setRun(true);
+		this.instance.getGame().sendMessage(true, "The game timer has been started.");
+	}
+	
+	private void stopTimer(IssuedCommand cmd) {
+		GameStatus status = this.instance.getGame().getGameStatus();
+		if(status == GameStatus.InGame) {
+			this.instance.getGame().pendingEnd();
+		}
+		if(status == GameStatus.PendingEnd) {
+			this.instance.getGame().endGame();
+		}
+		this.instance.getPluginTimer().setRun(false);
+		this.instance.getGame().sendMessage(true, "The game timer has been stopped.");
+	}
+
+	private void resumeTimer(IssuedCommand cmd) {
+		this.instance.getPluginTimer().setRun(true);
+		this.instance.getGame().sendMessage(true, "The game timer has been resumed.");
+	}
+	
+	private void pauseTimer(IssuedCommand cmd) {
+		this.instance.getPluginTimer().setRun(false);
+		this.instance.getGame().sendMessage(true, "The game timer has been paused.");
 	}
 	
 	private void forceStart(IssuedCommand cmd) {
@@ -64,6 +110,23 @@ public class TimerCommand extends MessageCommand {
 	}
 	
 	private void helpMsg(IssuedCommand cmd) {
-		super.msgPrefix(cmd, "You can use (force start | force end)");
+		super.msgPrefix(cmd, "Available Commands:");
+		String dud = ChatColor.DARK_GRAY + "    - ";
+		ArrayList<String> msg = new ArrayList<String>();
+		msg.add("/timer start - Starts the timer when stopped.");
+		msg.add("/timer stop - Stops the timer when in progress.");
+		msg.add("/timer pause - Pauses the timer (Stays in Game).");
+		msg.add("/timer resume - Resumes the timer (Stays in Game).");
+		msg.add("/timer force start - Starts the game.");
+		msg.add("/timer force end - Ends the game.");
+		int i = 1;
+		for(String m : msg) {
+			super.msg(cmd, dud + (i == 1 ? ChatColor.LIGHT_PURPLE : ChatColor.AQUA) + m);
+			if(i == 1) {
+				i = 2;
+			}else{
+				i = 1;
+			}
+		}
 	}
 }
