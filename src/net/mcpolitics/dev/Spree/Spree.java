@@ -81,6 +81,8 @@ public class Spree extends JavaPlugin {
 	private Parser parser;
 	//Game
 	private Game game;
+	//Timer
+	private PluginTimer pluginTimer;
 	
 	@Override
 	public void onEnable() {
@@ -114,6 +116,8 @@ public class Spree extends JavaPlugin {
 		//Parser
 		this.log("Initiating Parsers...");
 		this.parser = new Parser(this);
+		//Timer
+		this.pluginTimer = new PluginTimer(this);
 		
 		// Configuration
 		this.log("Initiating Configuration...");
@@ -183,7 +187,7 @@ public class Spree extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new InventoryListener(this), this);
 		//Timer
 		this.log("Initiating Game Timer...");
-		Bukkit.getScheduler().runTaskTimer(this, new PluginTimer(this), 20L, 20L);
+		Bukkit.getScheduler().runTaskTimer(this, this.pluginTimer, 20L, 20L);
 		//VoteManager
 		this.getVoteManager().resetVotes();
 		//KitManager (Make sure the kits were deleted in case of crash of server)
@@ -356,5 +360,11 @@ public class Spree extends JavaPlugin {
 	
 	public Game getGame() {
 		return this.game;
+	}
+	
+	//************************************ Timer *******************************************
+	
+	public PluginTimer getPluginTimer() {
+		return this.pluginTimer;
 	}
 }
