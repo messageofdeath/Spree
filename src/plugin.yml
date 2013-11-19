@@ -17,4 +17,4 @@ commands:
   points:
     description: Displays how many points you have.
   settings:
-    description: Get/Set a setting (Test)
+    description: Get/Set a setting.
