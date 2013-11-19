@@ -7,7 +7,7 @@ import net.mcpolitics.dev.Spree.Timer.Runnables.GameRunnable;
 public class PluginTimer implements Runnable {
 	
 	private Spree instance;
-	private boolean start = true;
+	private boolean start = true, run = true;
 	
 	public PluginTimer(Spree instance) {
 		this.instance = instance;
@@ -15,13 +15,19 @@ public class PluginTimer implements Runnable {
 	
 	@Override
 	public void run() {
-		if(start == true) {
-			new GameRunnable(this.instance);
-			new DatabaseRunnable(this.instance);
-			start = false;
+		if(run == true) {
+			if(start == true) {
+				new GameRunnable(this.instance);
+				new DatabaseRunnable(this.instance);
+				start = false;
+			}
+			for(SpreeRunnable run : SpreeRunnable.getRunnables()) {
+				run.run();
+			}
 		}
-		for(SpreeRunnable run : SpreeRunnable.getRunnables()) {
-			run.run();
-		}
+	}
+	
+	public void setRun(boolean run) {
+		this.run = run;
 	}
 }
