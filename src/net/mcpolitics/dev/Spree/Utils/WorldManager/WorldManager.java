@@ -41,7 +41,11 @@ public class WorldManager {
 	}
 	
 	public void unloadWorld(World world) {
-		this.instance.getServer().unloadWorld(world.getWorldName(), false);
+		if(world != null) {
+			this.instance.getServer().unloadWorld(world.getWorldName(), false);
+		}else{
+			this.instance.logError("World", "WorldManager", "unloadWorld(World)", "Attempted to unload a world that is null.");
+		}
 	}
 	
 	public ArrayList<World> getWorlds() {
