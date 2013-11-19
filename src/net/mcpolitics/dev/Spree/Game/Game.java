@@ -254,6 +254,7 @@ public class Game {
 		if(this.players.size() < (Integer)ConfigSettings.RequiredAmountOfPlayers.getSetting()) {
 			this.sendMessage(true, "There are not enough players to continue....");
 			this.instance.logError("Game", "Game", "startGame()", "Not enough players to continue");
+			this.setEndReason(EndReason.NotEnoughPlayers);
 			this.endGame();
 			return;
 		}
