@@ -295,8 +295,8 @@ public class Game {
 		}
 		this.instance.getStatDatabase().saveDatabase();
 		if(this.getEndReason() != EndReason.NotEnoughPlayers) {
-			this.resetVariables();
 			this.announceWinner();
+			this.resetVariables();
 		}else{
 			this.endReason = null;
 		}
