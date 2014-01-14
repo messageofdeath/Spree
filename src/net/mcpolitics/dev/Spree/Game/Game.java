@@ -239,10 +239,14 @@ public class Game {
 				this.setWorld(this.instance.getVoteManager().getWorldVote());
 				this.instance.getVoteManager().resetVotes();
 			}
-			this.sendMessage(true, "The map '"+this.getWorld().getWorldName()+"' has been chosen!");
-			if(!this.instance.getWorldManager().isLoaded(this.getWorld())) {
-				this.instance.getWorldManager().loadWorld(this.getWorld());
-				this.getWorld().updateLocations();
+			if(this.getWorld() == null) {
+				this.sendMessage(true, "The map '"+this.getWorld().getWorldName()+"' has been chosen!");
+				if(!this.instance.getWorldManager().isLoaded(this.getWorld())) {
+					this.instance.getWorldManager().loadWorld(this.getWorld());
+					this.getWorld().updateLocations();
+				}
+			}else{
+				this.instance.logError("Pending Start Game", "Game", "pendingStartGame()", "The world is null");
 			}
 		}else{
 			this.instance.logError("Pending Start Game", "Game", "pendingStartGame()", "There are no worlds available for use.");

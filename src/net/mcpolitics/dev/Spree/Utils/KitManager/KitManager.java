@@ -44,18 +44,10 @@ public class KitManager {
 	}
 	
 	public void addKit(Kit kit) {
-		if(this.instance.getDonatorManager().hasPlayer(kit.getPlayerName())) {
-			if(!this.hasKit(kit.getPlayerName(), kit.getKitName())) {
-				this.kits.add(kit);
-			}else{
-				this.instance.logError("Kits", "KitManager", "addKit(Kit kit)", "Attempted to add a kit under a kitName already used for the player.");
-			}
+		if(!this.hasKit(kit.getPlayerName(), kit.getKitName())) {
+			this.kits.add(kit);
 		}else{
-			if(!this.hasKits(kit.getPlayerName())) {
-				this.kits.add(kit);
-			}else{
-				this.instance.logError("Kits", "KitManager", "addKit(Kit kit)", "Attempted to add a kit under a player that is not a donator. Already has one.");
-			}
+			this.instance.logError("Kits", "KitManager", "addKit(Kit kit)", "Attempted to add a kit under a kitName already used for the player.");
 		}
 	}
 	
@@ -73,22 +65,20 @@ public class KitManager {
 		}
 	}
 	
+	public void deleteKitsOnShutDown() {
+		ArrayList<Kit> kits = new ArrayList<Kit>();
+		kits.addAll(this.kits);
+		for(Kit kit : kits) {
+			if(kit.isDeleteOnShutdown()) {
+				this.deleteKit(kit.getPlayerName(), kit.getKitName());
+				this.removeKit(kit.getPlayerName(), kit.getKitName());
+			}
+		}
+	}
+	
 	public void deleteKit(String name, String kitName) {
 		this.instance.getKitDatabase().deleteKit(name, kitName);
 		this.removeKit(name, kitName);
-	}
-	
-	public void deleteKitsOnShutDown() {
-		ArrayList<Kit> kits = new ArrayList<Kit>();
-		for(Kit kit : this.getKits()) {
-			if(kit.isDeleteOnShutdown()) {
-				kits.add(kit);
-			}
-		}
-		for(Kit kit : kits) {
-			this.deleteKit(kit.getPlayerName(), kit.getKitName());
-			this.removeKit(kit.getPlayerName(), kit.getKitName());
-		}
 	}
 	
 	public void loadKits(String name) {

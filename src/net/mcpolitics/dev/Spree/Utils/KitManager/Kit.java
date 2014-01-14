@@ -31,14 +31,6 @@ public class Kit {
 		return this.deleteOnShutdown;
 	}
 	
-	public void setHidden(boolean hidden) {
-		this.isHidden = hidden;
-	}
-	
-	public void setDeleteOnShutdown(boolean shutdown) {
-		this.deleteOnShutdown = shutdown;
-	}
-	
 	public void setContents(ArrayList<ItemStack> item) {
 		for(ItemStack i : item) {
 			if(i != null) {
@@ -64,19 +56,16 @@ public class Kit {
 	}
 	
 	public void setKit(Player player) {
-		int totalPointValue = this.instance.getPointManager().calculatePoints(player.getInventory());
-		if(totalPointValue <= this.instance.getPointManager().getMaxPoints(player.getName())) {
-			ArrayList<ItemStack> invContents = new ArrayList<ItemStack>();
-			for(ItemStack item: player.getInventory().getContents()) {
-				invContents.add(item);
-			}
-			this.setContents(invContents);
-			ArrayList<ItemStack> armorContents = new ArrayList<ItemStack>();
-			for(ItemStack item: player.getInventory().getArmorContents()) {
-				armorContents.add(item);
-			}
-			this.setArmorContents(armorContents);
+		ArrayList<ItemStack> invContents = new ArrayList<ItemStack>();
+		for(ItemStack item: player.getInventory().getContents()) {
+			invContents.add(item);
 		}
+		this.setContents(invContents);
+		ArrayList<ItemStack> armorContents = new ArrayList<ItemStack>();
+		for(ItemStack item: player.getInventory().getArmorContents()) {
+			armorContents.add(item);
+		}
+		this.setArmorContents(armorContents);
 	}
 	
 	public ItemStack getItem(ItemStack item) {

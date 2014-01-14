@@ -1,11 +1,14 @@
 package net.mcpolitics.dev.Spree.Utils.KitManager;
 
+import net.mcpolitics.dev.Spree.Spree;
+
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
 public class Item {
 	
+	private static Spree instance;
 	private ItemStack itemStack;
 	
 	public Item(ItemStack itemStack) {
@@ -34,7 +37,8 @@ public class Item {
 	public static ItemStack parseStringToItemStack(String items) {
 		String[] parse = items.split(":");
 		if(parse.length > 2) {
-			ItemStack item = new ItemStack(Material.matchMaterial(parse[0]), Integer.parseInt(parse[2])
+			ItemStack itemQ = instance.getItemDatabase().getMaterial(parse[0] + ":" + parse[1]);
+			ItemStack item = new ItemStack(itemQ.getType(), Integer.parseInt(parse[2])
 				, Material.matchMaterial(parse[0]).getMaxDurability(), Byte.parseByte(parse[1]));
 			if(parse.length > 3) {
 				for(String enchants : parse[3].split(",")) {
@@ -45,5 +49,9 @@ public class Item {
 			return item;
 		}
 		return null;
+	}
+	
+	public static void setInstance(Spree instance) {
+		Item.instance = instance;
 	}
 }
