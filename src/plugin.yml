@@ -1,7 +1,7 @@
 name: Spree
 author: messageofdeath
 version: 1.0.2
-main: net.mcpolitics.dev.Spree.Spree
+main: com.nixium.Spree.Spree
 depend: [Citizens]
 commands:
   timer:
