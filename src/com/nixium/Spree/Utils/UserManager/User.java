@@ -166,7 +166,6 @@ public class User {
 				if(i != null) {
 					if(totalPoints + instance.getPointManager().getPointValue(i) <= instance.getPointManager().getMaxPoints(this.name)) {
 						invContents.add(i);
-						totalPoints += instance.getPointManager().getPointValue(i);
 					}else{
 						break;
 					}
@@ -180,7 +179,6 @@ public class User {
 				if(i != null) {
 					if(totalPoints + instance.getPointManager().getPointValue(i) <= instance.getPointManager().getMaxPoints(this.name)) {
 						stack.add(i);
-						totalPoints += instance.getPointManager().getPointValue(i);
 					}else{
 						break;
 					}
@@ -191,7 +189,7 @@ public class User {
 			kit.setArmorContents(stack);
 			this.saveKits();
 		}else{
-			instance.logError("User", "User", "setInventory(Kit kit)", "Kit is null");
+			instance.logError("KitManager", "Gamer", "setInventory(Kit kit)", "Kit is null");
 		}
 	}
 	
@@ -229,7 +227,9 @@ public class User {
 			}
 			this.getPlayer().getInventory().setArmorContents(item);
 		}else{
-			instance.logError("User", "User", "setInventory(Kit kit)", "Kit is null");
+			this.saveKits();
+			this.getPlayer().getInventory().clear();
+			this.getPlayer().getInventory().setArmorContents(null);
 		}
 	}
 	

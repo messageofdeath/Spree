@@ -38,6 +38,7 @@ import com.nixium.Spree.Timer.PluginTimer;
 import com.nixium.Spree.Utils.Parser;
 import com.nixium.Spree.Utils.DonatorManager.DonatorManager;
 import com.nixium.Spree.Utils.InventoryManager.InventoryManager;
+import com.nixium.Spree.Utils.KitManager.Item;
 import com.nixium.Spree.Utils.KitManager.KitManager;
 import com.nixium.Spree.Utils.NPCManager.NPCManager;
 import com.nixium.Spree.Utils.PointManager.PointManager;
@@ -90,6 +91,7 @@ public class Spree extends JavaPlugin {
 		//Managers
 		this.log("Initiating Managers...");
 		User.instance = this;
+		Item.setInstance(this);
 		this.databaseManager = new DatabaseManager(this);
 		this.statsManager = new StatsManager(this);
 		this.worldManager = new WorldManager(this);
