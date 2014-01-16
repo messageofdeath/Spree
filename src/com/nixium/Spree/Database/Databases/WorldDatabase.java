@@ -70,8 +70,8 @@ public class WorldDatabase {
 		}
 		
 		if(this.manager.useYAML(DatabaseType.loadType)) {
-			if(this.database.getSection("Worlds") != null) {
-				for(String worldName : this.database.getSection("Worlds")) {
+			if(this.database.getSection("Worlds", new ArrayList<String>()) != null) {
+				for(String worldName : this.database.getSection("Worlds", new ArrayList<String>())) {
 					String prefix = "Worlds." + worldName + ".";
 					ArrayList<Vector> spawns = this.instance.getParser()
 							.parseStringToSpawns(this.database.getString(prefix + "Spawns", ""));
@@ -96,7 +96,7 @@ public class WorldDatabase {
 		}
 		
 		if(this.manager.useYAML(DatabaseType.loadType)) {
-			for(String worldName : this.database.getSection("Worlds")) {
+			for(String worldName : this.database.getSection("Worlds", new ArrayList<String>())) {
 				if(worldName.equalsIgnoreCase(world)) {
 					return true;
 				}

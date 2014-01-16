@@ -59,7 +59,7 @@ public class NPCDatabase {
 		}
 		
 		if(this.manager.useYAML(DatabaseType.loadType)) {
-			for(String i : this.database.getSection("")) {
+			for(String i : this.database.getSection("", new ArrayList<String>())) {
 				try {
 					int id = Integer.parseInt(i);
 					this.instance.getNPCManager().registerNPC(NPCType.valueOf(this.database.getString(id + ".NpcType", "")), id);

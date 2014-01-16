@@ -1,5 +1,6 @@
 package com.nixium.Spree.Database.Databases;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -33,7 +34,7 @@ public class ItemDatabase {
 		if(this.itemNames == null) {
 			this.itemNames = new HashMap<String, ItemStack>();
 		}
-		for(String key : this.items.getSection("")) {
+		for(String key : this.items.getSection("", new ArrayList<String>())) {
 			String[] value = this.items.getString(key, null).split(",");
 			if(value != null) {
 				if(!this.itemNames.containsKey(key.toUpperCase())) {
